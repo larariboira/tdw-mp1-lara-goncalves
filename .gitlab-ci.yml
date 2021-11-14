@@ -6,8 +6,15 @@ stages:
   - deploy
 
 variables:
+  
+  FF_USE_FASTZIP: "true"
+  ARTIFACT_COMPRESSION_LEVEL: fastest
+  CACHE_COMPRESSION_LEVEL: fastest
+  TRANSFER_METER_FREQUENCY: 5s
   NETLIFY_API_ID: $NETLIFY_API_ID
   NETLIFY_AUTH_TOKEN: $NETLIFY_AUTH_TOKEN
+
+
 
 install:
   stage: pre-build
@@ -18,17 +25,17 @@ install:
       - node_modules/
 
 
-# build-job:
-#   stage: build
-#   script:
-#     - npm run lint
-#     - npm run format
-#     - npm run test
-#   cache:
-#     paths:
-#       - node_modules/
+build-job:
+   stage: build
+   script:
+     - npm run lint
+     - npm run format
+     - npm run test
+   cache:
+     paths:
+       - node_modules/
 
-build-job2:
+build-run:
   stage: build
   script:
     - npm run build
