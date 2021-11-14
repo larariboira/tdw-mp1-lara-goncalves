@@ -77,6 +77,3 @@ Thumbs.db
 
 .idea
 
-.env.development
-
-.env.production
