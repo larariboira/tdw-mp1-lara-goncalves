@@ -1,31 +1,46 @@
-image: node:14
-
-cache:
-    paths:
-      - node_modules/
+image: node:16
 
 stages:
+  - pre-build
   - build
-  - test
+  - deploy
+
+variables:
+  NETLIFY_API_ID: $NETLIFY_API_ID
+  NETLIFY_AUTH_TOKEN: $NETLIFY_AUTH_TOKEN
 
 install:
-  stage: build
+  stage: pre-build
   script:
     - npm install
   artifacts:
     paths:
       - node_modules/
- 
-test:       # This job runs in the build stage, which runs first.
-  stage: test
-  script:
-    - npm run test
-    - npm run lint
-    - npm run format
 
-test_2:
-  stage: test
+
+# build-job:
+#   stage: build
+#   script:
+#     - npm run lint
+#     - npm run format
+#     - npm run test
+#   cache:
+#     paths:
+#       - node_modules/
+
+build-job2:
+  stage: build
   script:
     - npm run build
+  artifacts: 
+    paths: 
+      - public/
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy-prod:
+  stage: deploy
+  script:
+    - npx netlify-cli deploy --site "$NETLIFY_API_ID" --auth "$NETLIFY_AUTH_TOKEN" --prod
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
