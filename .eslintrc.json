@@ -7,12 +7,14 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "prettier"
+    "plugin:prettier/recommended"
+    //"prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
+
     "sourceType": "module"
   },
   "plugins": ["import", "react"],
@@ -332,9 +334,9 @@
     "react/react-in-jsx-scope": "error",
     "react/require-render-return": "error",
     "react/style-prop-object": "warn"
-   // "react-hooks/rules-of-hooks": "error"
+    // "react-hooks/rules-of-hooks": "error"
   },
-  "ignorePatterns": ["node_modules/**", "src/test/*.test.js"],
+  "ignorePatterns": ["node_modules/**", "src/components/__tests__/*.test.js"],
   "settings": {
     "react": {
       "createClass": "createReactClass", // Regex for Component Factory to use,

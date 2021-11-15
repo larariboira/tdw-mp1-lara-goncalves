@@ -32,14 +32,16 @@
 #       runner: node
 #     "any.go":
 #       runner: go run
+
 pre-commit:
   parallel: true
   commands:
     lint:
-      files: git diff --name-only @{push}
       glob: "*.{js,ts,jsx,tsx}"
-      run: npx eslint {files}
+      run: npm run lint
+    format:
+      glob: "*.{js,jsx,ts,tsx,json,md}"
+      run: npm run format
     test:
-      files: git diff --name-only @{push}
       glob: "*.{js,ts, jsx, tsx}"
-      run: jest --findRelatedTests {files}
+      run: npm run test
