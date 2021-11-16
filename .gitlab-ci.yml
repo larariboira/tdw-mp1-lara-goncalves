@@ -25,7 +25,7 @@ install:
       - node_modules/
 
 
-build-job:
+build:
    stage: build
    script:
      - npm run lint
@@ -35,19 +35,12 @@ build-job:
      paths:
        - node_modules/
 
-build-run:
-  stage: build
-  script:
-    - npm run build
-  artifacts: 
-    paths: 
-      - public/
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 
 deploy-prod:
   stage: deploy
   script:
+    - npm run build
     - npx netlify-cli deploy --site "$NETLIFY_API_ID" --auth "$NETLIFY_AUTH_TOKEN" --prod
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
