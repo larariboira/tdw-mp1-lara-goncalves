@@ -1,0 +1,39 @@
+
+version: 2.1
+
+#orbs:
+
+  #node: circleci/node@4.7
+
+jobs:
+  build-and-test:
+
+    docker:
+      - image: circleci/node:16
+   
+    steps:
+      - checkout        
+      - run: 
+          name: install
+          command: npm install
+      - run:
+          name: lint
+          command: npm run lint
+      - run:
+          name: prettier
+          command: npm run format
+      - run:
+          name: jest
+          command: npm run jest
+      - run:
+          name: build
+          command: npm run build
+      - run:
+          name: deploy
+          command: npx netlify-cli deploy --site "$NETLIFY_API_ID" --auth "$NETLIFY_ACCESS_TOKEN" --prod
+
+workflows:
+ 
+  sample:
+    jobs:
+      - build-and-test
