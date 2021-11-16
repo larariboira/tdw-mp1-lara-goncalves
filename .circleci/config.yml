@@ -2,7 +2,7 @@
 version: 2.1
 
 jobs:
-  build-and-test:
+  build:
 
     docker:
       - image: circleci/node:16
@@ -31,9 +31,9 @@ jobs:
           command: npx netlify-cli deploy --site "$NETLIFY_API_ID" --auth "$NETLIFY_ACCESS_TOKEN" --prod
 
 workflows:
-  build:
+  build-and-test:
     jobs:
-      - build-and-test
+      - build
 
   schedule-workflow:
     triggers:
@@ -45,4 +45,4 @@ workflows:
                   - circleci
                   - master
     jobs:
-      - build-and-test
+      - build
