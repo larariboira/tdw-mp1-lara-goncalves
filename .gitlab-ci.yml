@@ -4,8 +4,8 @@ cache:
   key:
     files:
       - package-lock.json
-    paths:
-      - node_modules/  
+  paths:
+    - node_modules/ 
 
 stages:
   - pre-build
