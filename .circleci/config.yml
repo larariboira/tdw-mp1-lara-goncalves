@@ -10,9 +10,17 @@ jobs:
 
     docker:
       - image: circleci/node:16
+        
+    working_directory: ~/repo
    
     steps:
-      - checkout        
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # Fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      
       - run: 
           name: install
           command: npm install
@@ -32,8 +40,8 @@ jobs:
           name: deploy
           command: npx netlify-cli deploy --site "$NETLIFY_API_ID" --auth "$NETLIFY_ACCESS_TOKEN" --prod
 
-workflows:
+#workflows:
  
-  sample:
-    jobs:
-      - build-and-test
+#  sample:
+#    jobs:
+#      - build-and-test
