@@ -1,5 +1,12 @@
 image: node:14
 
+cache:
+  key:
+    files:
+      - package-lock.json
+    paths:
+      - node_modules/  
+
 stages:
   - pre-build
   - build
@@ -31,13 +38,11 @@ build:
      - npm run lint
      - npm run format
      - npm run test
-   cache:
-     paths:
-       - node_modules/
+   
 
 
 
-deploy-prod:
+deploy:
   stage: deploy
   script:
     - npm run build
