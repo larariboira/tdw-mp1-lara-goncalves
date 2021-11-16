@@ -42,6 +42,7 @@ workflows:
           filters:
             branches:
               only:
+                  - circleci
                   - master
     jobs:
       - build-and-test
