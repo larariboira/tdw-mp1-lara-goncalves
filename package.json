@@ -46,5 +46,6 @@
     "test": "jest",
     "setup": "node ./bin/setup.js",
     "lint": "eslint src --ignore-pattern node_modules/"
+    
   }
 }
